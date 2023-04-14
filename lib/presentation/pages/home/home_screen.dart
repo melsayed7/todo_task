@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:todo_task/core/app_color.dart';
+import 'package:todo_task/presentation/pages/add_new_task/add_new_task.dart';
 import 'package:todo_task/presentation/widget/tab_section.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -27,7 +28,9 @@ class HomeScreen extends StatelessWidget {
             width: size.width * .1,
           ),
           InkWell(
-            onTap: () {},
+            onTap: () {
+              Navigator.of(context).pushNamed(AddNewTask.routeName);
+            },
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15),
               child: Image.asset(
