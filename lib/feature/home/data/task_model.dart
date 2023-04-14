@@ -5,6 +5,7 @@ class TaskModel {
   String category;
   int date;
   String notification;
+  int color;
 
   TaskModel({
     this.id = '',
@@ -13,16 +14,18 @@ class TaskModel {
     required this.category,
     required this.date,
     required this.notification,
+    required this.color,
   });
 
   TaskModel.fromJson(Map<String, dynamic> json)
       : this(
-          id: json['id'] as String,
+    id: json['id'] as String,
           taskName: json['taskName'] as String,
           description: json['description'] as String,
           category: json['category'] as String,
           date: json['date'] as int,
           notification: json['notification'] as String,
+          color: json['color'] as int,
         );
 
   Map<String, dynamic> toJson() {
@@ -33,6 +36,7 @@ class TaskModel {
       'category': category,
       'date': date,
       'notification': notification,
+      'color': color,
     };
   }
 }

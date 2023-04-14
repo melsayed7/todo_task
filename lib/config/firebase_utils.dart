@@ -17,9 +17,5 @@ Future<void> addTaskToFirebase(TaskModel model) {
 }
 
 Stream<QuerySnapshot<TaskModel>> getDataFromFirebase() {
-  return getTaskCollectionReference()
-      .where(
-        'date',
-      )
-      .snapshots();
+  return getTaskCollectionReference().orderBy('date').snapshots();
 }

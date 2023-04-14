@@ -10,8 +10,6 @@ class ShowDailyTasks extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var showTime = DateFormat('hh')
-        .format(DateTime.fromMicrosecondsSinceEpoch(taskModel.date));
 
     return Container(
       padding: const EdgeInsets.all(20),
@@ -26,20 +24,17 @@ class ShowDailyTasks extends StatelessWidget {
               Column(
                 children: [
                   Text(
-                    showTime,
+                    DateFormat.jm().format(
+                        DateTime.fromMillisecondsSinceEpoch(taskModel.date)),
                     style: const TextStyle(
                         fontSize: 20, fontWeight: FontWeight.w400),
-                  ),
-                  const Text(
-                    'AM',
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   ),
                 ],
               ),
               SizedBox(
                 width: MediaQuery.of(context).size.width * .1,
               ),
-              Column(children: [
+              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                 Text(
                   taskModel.taskName,
                   style: const TextStyle(
@@ -62,7 +57,7 @@ class ShowDailyTasks extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(left: 20.0),
                 child: CircleAvatar(
-                  backgroundColor: AppColor.yellowColor,
+                  backgroundColor: Color(taskModel.color),
                   radius: 10,
                 ),
               ),

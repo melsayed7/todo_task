@@ -24,6 +24,8 @@ class _AddNewTaskState extends State<AddNewTask> {
 
   var notificationController = TextEditingController();
 
+  int color = 0xff4CCB41;
+
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -154,22 +156,42 @@ class _AddNewTaskState extends State<AddNewTask> {
                 decoration: BoxDecoration(color: AppColor.whiteColor),
                 child: Row(
                   children: [
-                    CircleAvatar(
-                        backgroundColor: AppColor.redColor, radius: 10),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 20.0),
+                    InkWell(
+                      onTap: () {
+                        color = 0xffFC5565;
+                      },
                       child: CircleAvatar(
-                          backgroundColor: AppColor.yellowColor, radius: 10),
+                          backgroundColor: AppColor.redColor, radius: 10),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 20.0),
-                      child: CircleAvatar(
-                          backgroundColor: AppColor.blueColor, radius: 10),
+                    InkWell(
+                      onTap: () {
+                        color = 0xffFA9B4A;
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 20.0),
+                        child: CircleAvatar(
+                            backgroundColor: AppColor.yellowColor, radius: 10),
+                      ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 20.0),
-                      child: CircleAvatar(
-                          backgroundColor: AppColor.greenColor, radius: 10),
+                    InkWell(
+                      onTap: () {
+                        color = 0xff58BBF7;
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 20.0),
+                        child: CircleAvatar(
+                            backgroundColor: AppColor.blueColor, radius: 10),
+                      ),
+                    ),
+                    InkWell(
+                      onTap: () {
+                        color = 0xff4CCB41;
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 20.0),
+                        child: CircleAvatar(
+                            backgroundColor: AppColor.greenColor, radius: 10),
+                      ),
                     ),
                   ],
                 ),
@@ -192,11 +214,13 @@ class _AddNewTaskState extends State<AddNewTask> {
                       taskName: taskNameController.text,
                       description: descriptionController.text,
                       category: categoryController.text,
-                      date: DateUtils.dateOnly(selectedDate)
-                          .microsecondsSinceEpoch,
+                      date: selectedDate.millisecondsSinceEpoch,
                       notification: notificationController.text,
+                      color: color,
                     );
-                    addTaskToFirebase(taskModel);
+                    addTaskToFirebase(taskModel).then(
+                      (value) => Navigator.of(context).pop(),
+                    );
                   }
                 },
                 style: ElevatedButton.styleFrom(
