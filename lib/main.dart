@@ -2,12 +2,12 @@ import 'package:bloc/bloc.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:todo_task/core/app_theme.dart';
-import 'package:todo_task/presentation/pages/add_new_task/add_new_task.dart';
-import 'package:todo_task/presentation/pages/login/login_screen.dart';
+import 'package:todo_task/config/app_theme.dart';
+import 'package:todo_task/feature/home/presentation/screen/add_new_task.dart';
+import 'package:todo_task/feature/login/presentation/screen/login_screen.dart';
 
 import 'bloc_observer.dart';
-import 'presentation/pages/home/home_screen.dart';
+import 'feature/home/presentation/screen/home_screen.dart';
 
 var email;
 

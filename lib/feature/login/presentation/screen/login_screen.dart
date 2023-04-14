@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:todo_task/presentation/pages/home/home_screen.dart';
-import 'package:todo_task/presentation/pages/login/cubit/cubit.dart';
-import 'package:todo_task/presentation/pages/login/cubit/states.dart';
-import 'package:todo_task/presentation/widget/show_loader_dialog.dart';
+import 'package:todo_task/feature/home/presentation/screen/home_screen.dart';
+import 'package:todo_task/feature/login/presentation/cubit/cubit.dart';
+import 'package:todo_task/feature/login/presentation/cubit/states.dart';
+import 'package:todo_task/feature/login/presentation/widget/show_loader_dialog.dart';
 
 class LoginScreen extends StatelessWidget {
   static const String routeName = 'loginScreen';

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:todo_task/core/app_color.dart';
-import 'package:todo_task/presentation/pages/add_new_task/add_new_task.dart';
-import 'package:todo_task/presentation/widget/tab_section.dart';
+import 'package:todo_task/feature/home/presentation/screen/add_new_task.dart';
+import 'package:todo_task/feature/home/presentation/widget/tab_section.dart';
 
 class HomeScreen extends StatelessWidget {
   static const String routeName = 'HomeScreen';

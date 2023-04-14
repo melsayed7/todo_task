@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:todo_task/config/firebase_utils.dart';
 import 'package:todo_task/core/app_color.dart';
-import 'package:todo_task/model/firebase_utils.dart';
-import 'package:todo_task/model/task_model.dart';
-import 'package:todo_task/presentation/widget/custom_text_form_field.dart';
+import 'package:todo_task/feature/home/data/task_model.dart';
+import 'package:todo_task/feature/home/presentation/widget/custom_text_form_field.dart';
 
 class AddNewTask extends StatefulWidget {
   static const String routeName = 'AddNewTask';
@@ -127,7 +127,8 @@ class _AddNewTaskState extends State<AddNewTask> {
                         showDate();
                       },
                       child: Text(
-                        '${selectedDate.year}/${selectedDate.month}/${selectedDate.day}',
+                        '${selectedDate.day}-${selectedDate.month}-${selectedDate.year} | '
+                        '${selectedDate.hour} : ${selectedDate.minute} ',
                         style: const TextStyle(
                           fontWeight: FontWeight.w300,
                           fontSize: 16,

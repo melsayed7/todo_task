@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:todo_task/model/task_model.dart';
+import 'package:todo_task/feature/home/data/task_model.dart';
 
 CollectionReference<TaskModel> getTaskCollectionReference() {
   return FirebaseFirestore.instance.collection('task').withConverter<TaskModel>(
@@ -14,4 +14,12 @@ Future<void> addTaskToFirebase(TaskModel model) {
   var docRef = collection.doc();
   model.id = docRef.id;
   return docRef.set(model);
+}
+
+Stream<QuerySnapshot<TaskModel>> getDataFromFirebase() {
+  return getTaskCollectionReference()
+      .where(
+        'date',
+      )
+      .snapshots();
 }
