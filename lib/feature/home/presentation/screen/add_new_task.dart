@@ -218,8 +218,11 @@ class _AddNewTaskState extends State<AddNewTask> {
                       notification: notificationController.text,
                       color: color,
                     );
-                    addTaskToFirebase(taskModel).then(
-                      (value) => Navigator.of(context).pop(),
+                    addTaskToFirebase(taskModel).timeout(
+                      const Duration(microseconds: 500),
+                      onTimeout: () {
+                        Navigator.pop(context);
+                      },
                     );
                   }
                 },
