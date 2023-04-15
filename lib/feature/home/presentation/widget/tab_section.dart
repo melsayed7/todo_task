@@ -44,8 +44,8 @@ Widget tabSection(BuildContext context) {
                   );
                 },
               ),
-              const Text("WEEKLY Body"),
-              const Text("MONTHLY Body"),
+              const Center(child: Text("WEEKLY Body")),
+              const Center(child: Text("MONTHLY Body")),
             ]),
           ),
         ),
