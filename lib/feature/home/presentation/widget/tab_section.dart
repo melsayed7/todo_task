@@ -8,7 +8,7 @@ Widget tabSection(BuildContext context) {
   return DefaultTabController(
     length: 3,
     child: Column(
-      children: <Widget>[
+      children: [
         Container(
           height: size.height * .04,
           decoration: BoxDecoration(color: AppColor.primaryColor),

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:todo_task/config/app_theme.dart';
 import 'package:todo_task/feature/home/presentation/screen/add_new_task.dart';
+import 'package:todo_task/feature/home/presentation/screen/task_details.dart';
 import 'package:todo_task/feature/login/presentation/screen/login_screen.dart';
 
 import 'bloc_observer.dart';
@@ -31,6 +32,7 @@ class MyApp extends StatelessWidget {
         LoginScreen.routeName: (_) => LoginScreen(),
         HomeScreen.routeName: (_) => HomeScreen(),
         AddNewTask.routeName: (_) => AddNewTask(),
+        TaskDetails.routeName: (_) => TaskDetails(),
       },
       theme: AppTheme.theme,
     );

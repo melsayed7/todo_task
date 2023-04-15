@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:todo_task/core/app_color.dart';
 import 'package:todo_task/feature/home/presentation/screen/add_new_task.dart';
+import 'package:todo_task/feature/home/presentation/widget/custom_container.dart';
 import 'package:todo_task/feature/home/presentation/widget/tab_section.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -43,29 +43,7 @@ class HomeScreen extends StatelessWidget {
       ),
       body: Column(
         children: [
-          Container(
-            height: size.height * .10,
-            decoration: BoxDecoration(color: AppColor.primaryColor),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: TextField(
-                decoration: InputDecoration(
-                    hintText: 'Search Task',
-                    suffixIcon: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Image.asset(
-                        'assets/images/search.png',
-                        width: size.width * .01,
-                      ),
-                    ),
-                    fillColor: AppColor.whiteColor,
-                    filled: true,
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    )),
-              ),
-            ),
-          ),
+          CustomContainer(),
           Expanded(
             child: tabSection(context),
           ),
