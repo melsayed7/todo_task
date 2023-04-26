@@ -7,10 +7,11 @@ class LoginCubit extends Cubit<LoginStates> {
 
   static LoginCubit get(context) => BlocProvider.of(context);
 
-  void login(String email) async {
+  void login(String email, String password) async {
     emit(LoadingLoginState());
     var prefs = await SharedPreferences.getInstance();
     prefs.setString('email', email).then((value) {
+      prefs.setString('password', password);
       emit(SuccessfulLoginState());
     }).catchError((error) {
       emit(ErrorLoginState());

@@ -7,8 +7,8 @@ class CustomTextFormField extends StatelessWidget {
   TextEditingController controller;
 
   CustomTextFormField({
-    required this.validator,
     required this.hintText,
+    required this.validator,
     required this.controller,
   });
 
@@ -17,6 +17,8 @@ class CustomTextFormField extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(bottom: 2.0),
       child: TextFormField(
+        minLines: 1,
+        maxLines: 4,
         controller: controller,
         validator: validator,
         decoration: InputDecoration(

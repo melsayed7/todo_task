@@ -2,19 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:todo_task/config/firebase_utils.dart';
 import 'package:todo_task/core/app_color.dart';
 import 'package:todo_task/feature/home/data/task_model.dart';
-import 'package:todo_task/feature/home/presentation/widget/custom_text_form_field.dart';
+import 'package:todo_task/feature/home/presentation/screen/home_screen.dart';
+import 'package:todo_task/feature/home/presentation/widget/custom_container_edit_task.dart';
 
-class AddNewTask extends StatefulWidget {
-  static const String routeName = 'AddNewTask';
+class EditTask extends StatefulWidget {
+  static const String routeName = 'EditTask';
 
   @override
-  State<AddNewTask> createState() => _AddNewTaskState();
+  State<EditTask> createState() => _EditTaskState();
 }
 
-class _AddNewTaskState extends State<AddNewTask> {
+class _EditTaskState extends State<EditTask> {
   var formKey = GlobalKey<FormState>();
 
   DateTime selectedDate = DateTime.now();
+
   TimeOfDay selectedTime = TimeOfDay.now();
 
   var taskNameController = TextEditingController();
@@ -27,6 +29,22 @@ class _AddNewTaskState extends State<AddNewTask> {
 
   int color = 0xff4CCB41;
 
+  late TaskModel args;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      args = ModalRoute.of(context)?.settings.arguments as TaskModel;
+      taskNameController.text = args.taskName;
+      descriptionController.text = args.description;
+      categoryController.text = args.category;
+      notificationController.text = args.notification;
+      selectedDate = DateTime.fromMicrosecondsSinceEpoch(args.date);
+      selectedTime = TimeOfDay.now();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -34,7 +52,7 @@ class _AddNewTaskState extends State<AddNewTask> {
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: Text(
-          'New Task',
+          'Edit Task',
           style: TextStyle(
               color: AppColor.whiteColor, fontWeight: FontWeight.w300),
         ),
@@ -78,7 +96,8 @@ class _AddNewTaskState extends State<AddNewTask> {
                   ),
                 ),
               ),
-              CustomTextFormField(
+              CustomContainerEditTask(
+                text: 'Task Name',
                 validator: (value) {
                   if (value!.isEmpty) {
                     return 'Please entre task name';
@@ -86,9 +105,9 @@ class _AddNewTaskState extends State<AddNewTask> {
                   return null;
                 },
                 controller: taskNameController,
-                hintText: 'Task Name',
               ),
-              CustomTextFormField(
+              CustomContainerEditTask(
+                text: 'Description',
                 validator: (value) {
                   if (value!.isEmpty) {
                     return 'Please entre description';
@@ -96,9 +115,9 @@ class _AddNewTaskState extends State<AddNewTask> {
                   return null;
                 },
                 controller: descriptionController,
-                hintText: 'Description',
               ),
-              CustomTextFormField(
+              CustomContainerEditTask(
+                text: 'Category',
                 validator: (value) {
                   if (value!.isEmpty) {
                     return 'Please entre category';
@@ -106,7 +125,6 @@ class _AddNewTaskState extends State<AddNewTask> {
                   return null;
                 },
                 controller: categoryController,
-                hintText: 'Category',
               ),
               Container(
                 padding: const EdgeInsets.all(14),
@@ -131,7 +149,7 @@ class _AddNewTaskState extends State<AddNewTask> {
                       },
                       child: Text(
                         '${selectedDate.day}-${selectedDate.month}-${selectedDate.year} | '
-                        '${selectedTime.format(context)}  ',
+                        ' ${selectedTime.format(context)}',
                         style: const TextStyle(
                           fontWeight: FontWeight.w300,
                           fontSize: 16,
@@ -197,7 +215,8 @@ class _AddNewTaskState extends State<AddNewTask> {
                   ],
                 ),
               ),
-              CustomTextFormField(
+              CustomContainerEditTask(
+                text: 'Notification',
                 validator: (value) {
                   if (value!.isEmpty) {
                     return 'Please entre notification';
@@ -205,25 +224,22 @@ class _AddNewTaskState extends State<AddNewTask> {
                   return null;
                 },
                 controller: notificationController,
-                hintText: 'Notification',
               ),
               const Spacer(),
               ElevatedButton(
                 onPressed: () {
                   if (formKey.currentState!.validate()) {
-                    TaskModel taskModel = TaskModel(
-                      taskName: taskNameController.text,
-                      description: descriptionController.text,
-                      category: categoryController.text,
-                      date: selectedDate.millisecondsSinceEpoch,
-                      time: selectedTime.format(context),
-                      notification: notificationController.text,
-                      color: color,
-                    );
-                    addTaskToFirebase(taskModel).timeout(
+                    args.taskName = taskNameController.text;
+                    args.description = descriptionController.text;
+                    args.category = categoryController.text;
+                    args.notification = notificationController.text;
+                    args.date = selectedDate.microsecondsSinceEpoch;
+                    args.color = color;
+                    updateTaskFromFirebase(args).timeout(
                       const Duration(microseconds: 500),
                       onTimeout: () {
-                        Navigator.pop(context);
+                        Navigator.of(context)
+                            .popAndPushNamed(HomeScreen.routeName);
                       },
                     );
                   }
@@ -233,7 +249,7 @@ class _AddNewTaskState extends State<AddNewTask> {
                   backgroundColor: AppColor.primaryColor,
                 ),
                 child: Text(
-                  'ADD',
+                  'EDIT',
                   style: TextStyle(
                     color: AppColor.whiteColor,
                     fontSize: 20,
@@ -251,16 +267,16 @@ class _AddNewTaskState extends State<AddNewTask> {
   Future<void> showDate() async {
     var chosenDate = await showDatePicker(
       context: context,
-      initialDate: selectedDate,
       firstDate: DateTime.now(),
+      initialDate: selectedDate,
       lastDate: DateTime.now().add(const Duration(days: 365)),
     );
     if (chosenDate != null) {
       selectedDate = chosenDate;
     }
     var chosenTime = await showTimePicker(
-      initialTime: selectedTime,
       context: context,
+      initialTime: selectedTime,
     );
     if (chosenTime != null) {
       selectedTime = chosenTime;

@@ -19,3 +19,11 @@ Future<void> addTaskToFirebase(TaskModel model) {
 Stream<QuerySnapshot<TaskModel>> getDataFromFirebase() {
   return getTaskCollectionReference().orderBy('date').snapshots();
 }
+
+Future<void> deleteTaskFromFirebase(TaskModel model) async {
+  return await getTaskCollectionReference().doc(model.id).delete();
+}
+
+Future<void> updateTaskFromFirebase(TaskModel model) {
+  return getTaskCollectionReference().doc(model.id).update(model.toJson());
+}

@@ -4,6 +4,7 @@ class TaskModel {
   String description;
   String category;
   int date;
+  String time;
   String notification;
   int color;
 
@@ -13,6 +14,7 @@ class TaskModel {
     required this.description,
     required this.category,
     required this.date,
+    required this.time,
     required this.notification,
     required this.color,
   });
@@ -24,6 +26,7 @@ class TaskModel {
           description: json['description'] as String,
           category: json['category'] as String,
           date: json['date'] as int,
+          time: json['time'] as String,
           notification: json['notification'] as String,
           color: json['color'] as int,
         );
@@ -35,6 +38,7 @@ class TaskModel {
       'description': description,
       'category': category,
       'date': date,
+      'time': time,
       'notification': notification,
       'color': color,
     };

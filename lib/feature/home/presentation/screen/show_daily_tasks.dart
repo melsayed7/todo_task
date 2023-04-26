@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:todo_task/core/app_color.dart';
 import 'package:todo_task/feature/home/data/task_model.dart';
 import 'package:todo_task/feature/home/presentation/screen/task_details.dart';
@@ -29,8 +28,7 @@ class ShowDailyTasks extends StatelessWidget {
                 Column(
                   children: [
                     Text(
-                      DateFormat.jm().format(
-                          DateTime.fromMillisecondsSinceEpoch(taskModel.date)),
+                      taskModel.time,
                       style: const TextStyle(
                           fontSize: 18, fontWeight: FontWeight.w400),
                     ),

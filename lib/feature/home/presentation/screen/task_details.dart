@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:todo_task/config/firebase_utils.dart';
+import 'package:todo_task/feature/home/presentation/screen/edit_task.dart';
 
 import '../../../../core/app_color.dart';
 import '../../data/task_model.dart';
@@ -94,8 +96,7 @@ class TaskDetails extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      DateFormat('d MMM, yyyy | h:mm a').format(
-                          DateTime.fromMillisecondsSinceEpoch(args.date)),
+                      '${DateFormat('d MMM, yyyy').format(DateTime.fromMillisecondsSinceEpoch(args.date))} | ${args.time}',
                       style: const TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w200,
@@ -136,8 +137,21 @@ class TaskDetails extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     IconButton(
-                        onPressed: () {}, icon: const Icon(Icons.delete)),
-                    IconButton(onPressed: () {}, icon: const Icon(Icons.edit)),
+                        onPressed: () {
+                          deleteTaskFromFirebase(args).timeout(
+                            const Duration(microseconds: 500),
+                            onTimeout: () {
+                              Navigator.pop(context);
+                            },
+                          );
+                        },
+                        icon: const Icon(Icons.delete)),
+                    IconButton(
+                        onPressed: () {
+                          Navigator.of(context)
+                              .pushNamed(EditTask.routeName, arguments: args);
+                        },
+                        icon: const Icon(Icons.edit)),
                     IconButton(
                         onPressed: () {}, icon: const Icon(Icons.access_time)),
                     IconButton(

@@ -90,7 +90,8 @@ class LoginScreen extends StatelessWidget {
                     onPressed: () {
                       if (formKey.currentState!.validate()) {
                         ShowLoaderDialog.loadDialog(context);
-                        LoginCubit.get(context).login(userName.text);
+                        LoginCubit.get(context)
+                            .login(userName.text, password.text);
                       }
                     },
                     style: ElevatedButton.styleFrom(
