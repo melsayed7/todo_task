@@ -41,7 +41,10 @@ class _EditTaskState extends State<EditTask> {
       categoryController.text = args.category;
       notificationController.text = args.notification;
       selectedDate = DateTime.fromMicrosecondsSinceEpoch(args.date);
-      selectedTime = TimeOfDay.now();
+      print(selectedDate);
+      selectedTime = TimeOfDay(
+          hour: int.parse(args.time.split(":")[0]),
+          minute: int.parse(args.time.split(":")[1]));
     });
   }
 
@@ -148,8 +151,7 @@ class _EditTaskState extends State<EditTask> {
                         showDate();
                       },
                       child: Text(
-                        '${selectedDate.day}-${selectedDate.month}-${selectedDate.year} | '
-                        ' ${selectedTime.format(context)}',
+                        '${selectedDate.day}-${selectedDate.month}-${selectedDate.year} |' /*' ${selectedTime.format(context)}'*/,
                         style: const TextStyle(
                           fontWeight: FontWeight.w300,
                           fontSize: 16,
@@ -267,8 +269,8 @@ class _EditTaskState extends State<EditTask> {
   Future<void> showDate() async {
     var chosenDate = await showDatePicker(
       context: context,
-      firstDate: DateTime.now(),
       initialDate: selectedDate,
+      firstDate: DateTime.now(),
       lastDate: DateTime.now().add(const Duration(days: 365)),
     );
     if (chosenDate != null) {
