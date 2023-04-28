@@ -40,11 +40,11 @@ class _EditTaskState extends State<EditTask> {
       descriptionController.text = args.description;
       categoryController.text = args.category;
       notificationController.text = args.notification;
+      color = args.color;
       selectedDate = DateTime.fromMicrosecondsSinceEpoch(args.date);
-      print(selectedDate);
       selectedTime = TimeOfDay(
           hour: int.parse(args.time.split(":")[0]),
-          minute: int.parse(args.time.split(":")[1]));
+          minute: int.parse(args.time.split(":")[0]));
     });
   }
 
@@ -151,7 +151,8 @@ class _EditTaskState extends State<EditTask> {
                         showDate();
                       },
                       child: Text(
-                        '${selectedDate.day}-${selectedDate.month}-${selectedDate.year} |' /*' ${selectedTime.format(context)}'*/,
+                        '${selectedDate.day}-${selectedDate.month}-${selectedDate.year} |'
+                        ' ${selectedTime.format(context)}',
                         style: const TextStyle(
                           fontWeight: FontWeight.w300,
                           fontSize: 16,
@@ -180,39 +181,124 @@ class _EditTaskState extends State<EditTask> {
                     InkWell(
                       onTap: () {
                         color = 0xffFC5565;
+                        setState(() {});
                       },
-                      child: CircleAvatar(
-                          backgroundColor: AppColor.redColor, radius: 10),
+                      child: color == 0xffFC5565
+                          ? Stack(
+                              children: [
+                                CircleAvatar(
+                                    backgroundColor: AppColor.redColor,
+                                    radius: 10),
+                                const CircleAvatar(
+                                    backgroundColor: Colors.black26,
+                                    radius: 10,
+                                    child: Icon(
+                                      Icons.check,
+                                      size: 20,
+                                    )),
+                              ],
+                            )
+                          : CircleAvatar(
+                              backgroundColor: AppColor.redColor, radius: 10),
                     ),
                     InkWell(
                       onTap: () {
                         color = 0xffFA9B4A;
+                        setState(() {});
                       },
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 20.0),
-                        child: CircleAvatar(
-                            backgroundColor: AppColor.yellowColor, radius: 10),
-                      ),
+                      child: color == 0xffFA9B4A
+                          ? Stack(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 20.0),
+                                  child: CircleAvatar(
+                                      backgroundColor: AppColor.yellowColor,
+                                      radius: 10),
+                                ),
+                                const Padding(
+                                  padding: EdgeInsets.only(left: 20.0),
+                                  child: CircleAvatar(
+                                      backgroundColor: Colors.black26,
+                                      radius: 10,
+                                      child: Icon(
+                                        Icons.check,
+                                        size: 20,
+                                      )),
+                                ),
+                              ],
+                            )
+                          : Padding(
+                              padding: const EdgeInsets.only(left: 20.0),
+                              child: CircleAvatar(
+                                  backgroundColor: AppColor.yellowColor,
+                                  radius: 10),
+                            ),
                     ),
                     InkWell(
                       onTap: () {
                         color = 0xff58BBF7;
+                        setState(() {});
                       },
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 20.0),
-                        child: CircleAvatar(
-                            backgroundColor: AppColor.blueColor, radius: 10),
-                      ),
+                      child: color == 0xff58BBF7
+                          ? Stack(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 20.0),
+                                  child: CircleAvatar(
+                                      backgroundColor: AppColor.blueColor,
+                                      radius: 10),
+                                ),
+                                const Padding(
+                                  padding: EdgeInsets.only(left: 20.0),
+                                  child: CircleAvatar(
+                                      backgroundColor: Colors.black26,
+                                      radius: 10,
+                                      child: Icon(
+                                        Icons.check,
+                                        size: 20,
+                                      )),
+                                ),
+                              ],
+                            )
+                          : Padding(
+                              padding: const EdgeInsets.only(left: 20.0),
+                              child: CircleAvatar(
+                                  backgroundColor: AppColor.blueColor,
+                                  radius: 10),
+                            ),
                     ),
                     InkWell(
                       onTap: () {
                         color = 0xff4CCB41;
+                        setState(() {});
                       },
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 20.0),
-                        child: CircleAvatar(
-                            backgroundColor: AppColor.greenColor, radius: 10),
-                      ),
+                      child: color == 0xff4CCB41
+                          ? Stack(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 20.0),
+                                  child: CircleAvatar(
+                                      backgroundColor: AppColor.greenColor,
+                                      radius: 10),
+                                ),
+                                const Padding(
+                                  padding: EdgeInsets.only(left: 20.0),
+                                  child: CircleAvatar(
+                                      backgroundColor: Colors.black26,
+                                      radius: 10,
+                                      child: Icon(
+                                        Icons.check,
+                                        size: 20,
+                                      )),
+                                ),
+                              ],
+                            )
+                          : Padding(
+                              padding: const EdgeInsets.only(left: 20.0),
+                              child: CircleAvatar(
+                                  backgroundColor: AppColor.greenColor,
+                                  radius: 10),
+                            ),
                     ),
                   ],
                 ),
@@ -270,7 +356,7 @@ class _EditTaskState extends State<EditTask> {
     var chosenDate = await showDatePicker(
       context: context,
       initialDate: selectedDate,
-      firstDate: DateTime.now(),
+      firstDate: selectedDate,
       lastDate: DateTime.now().add(const Duration(days: 365)),
     );
     if (chosenDate != null) {
