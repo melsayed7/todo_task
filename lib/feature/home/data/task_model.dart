@@ -1,5 +1,5 @@
 class TaskModel {
-  String id;
+  int? id;
   String taskName;
   String description;
   String category;
@@ -9,7 +9,7 @@ class TaskModel {
   int color;
 
   TaskModel({
-    this.id = '',
+    this.id,
     required this.taskName,
     required this.description,
     required this.category,
@@ -21,7 +21,7 @@ class TaskModel {
 
   TaskModel.fromJson(Map<String, dynamic> json)
       : this(
-    id: json['id'] as String,
+    id: json['id'] as int,
           taskName: json['taskName'] as String,
           description: json['description'] as String,
           category: json['category'] as String,
